@@ -16,7 +16,7 @@ namespace RecurrentNeuronet
             dictionary = new Dictionary<string, double>();
             double wordsCount = 0;
 
-            for (int i=0; i < text.Length; i++)
+            for (int i = 0; i < text.Length; i++)
                 for (int j = 0; j < text[i].Length; j++)
                 {
                     if (dictionary.ContainsKey(text[i][j]))
@@ -50,6 +50,19 @@ namespace RecurrentNeuronet
                     d2.Clear();
                 }
             }
+        }
+
+        public double[][] EncodeText(string[][] text)
+        {
+            double[][] answer = new double[text.Length][];
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                answer[i] = new double[text[i].Length];
+                for(int j = 0; j< text[i].Length; j++)
+                    answer[i][j] = dictionary[text[i][j]];
+            }
+            return answer;
         }
 
         public double[] EncodeString(string s)

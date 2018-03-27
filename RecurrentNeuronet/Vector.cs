@@ -121,7 +121,7 @@ namespace RecurrentNeuronet
 
             double ans = 0;
             for (int i = 0; i < v1.Length; i++)
-                ans += v1[i]*v2[i];
+                ans += v1[i] * v2[i];
 
             return ans;
         }

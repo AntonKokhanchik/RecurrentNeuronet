@@ -30,14 +30,14 @@ namespace RecurrentNeuronet
         {
             string[][] text = getWords();
             encoder = new Encoder(text);
-            learn();
+            neuronet = new RecurrentNeuronet(encoder.EncodeText(text), l, epsilon);
         }
 
         private string[][] getWords()
         {
             List<string[]> text = new List<string[]>();
             StreamReader file = new StreamReader(openFileDialog1.OpenFile());
-
+ 
             string s = file.ReadLine();
             while (s != null)
             {
@@ -46,11 +46,6 @@ namespace RecurrentNeuronet
             }
 
             return text.ToArray();
-        }
-
-        private void learn()
-        {
-            throw new NotImplementedException();
         }
     }
 }

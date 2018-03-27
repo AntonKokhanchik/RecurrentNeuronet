@@ -169,8 +169,8 @@ namespace RecurrentNeuronet
             Matrix m3 = new Matrix(m1.Rows, m2.Columns);
             for (int i = 0; i < m1.Rows; i++)
                 for (int j = 0; j < m2.Columns; j++)
-                    for(int k = 0; k< m1.Columns; k++)
-                        m3[i][j] += m1[i][k]*m2[k][j];
+                    for (int k = 0; k < m1.Columns; k++)
+                        m3[i][j] += m1[i][k] * m2[k][j];
 
             return m3;
         }
