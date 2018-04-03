@@ -26,31 +26,39 @@ namespace RecurrentNeuronet
                     wordsCount++;
                 }
 
-            dictionary.OrderBy(d => d.Value);
+			dictionary = dictionary.OrderByDescending(d => d.Value).ToDictionary(x => x.Key, x => x.Value);
 
-            List<string> d2 = new List<string>();
-            for (int i = 0; i < dictionary.Count; i++)
+
+			List<string> d2 = new List<string>();
+			//dictionary[dictionary.ElementAt(0).Key] /= wordsCount;
+			for (int i = 1; i < dictionary.Count; i++)
             {
-                dictionary[dictionary.ElementAt(i).Key] /= wordsCount;
+                //dictionary[dictionary.ElementAt(i).Key] /= wordsCount;
 
                 // Отменяем вероятность получения двух слов с одинаковой частотой
                 if (dictionary[dictionary.ElementAt(i).Key] == dictionary[dictionary.ElementAt(i - 1).Key])
                     if (d2.Count == 0)
                     {
-                        d2.Add(dictionary.ElementAt(i).Key);
                         d2.Add(dictionary.ElementAt(i - 1).Key);
+                        d2.Add(dictionary.ElementAt(i).Key);
                     }
                     else
                         d2.Add(dictionary.ElementAt(i).Key);
 
                 else if (d2.Count > 0)
                 {
-                    for (int j = 0; j < d2.Count; j++)
-                        dictionary[d2.ElementAt(j)] += (j / d2.Count) / wordsCount;
+					for (int j = 0; j < d2.Count; j++)
+						dictionary[d2.ElementAt(j)] += ((double)j / d2.Count);// / wordsCount;
                     d2.Clear();
                 }
             }
-        }
+			if (d2.Count > 0)
+			{
+				for (int j = 0; j < d2.Count; j++)
+					dictionary[d2.ElementAt(j)] += ((double)j / d2.Count);// / wordsCount;
+				d2.Clear();
+			}
+		}
 
         public double[][] EncodeText(string[][] text)
         {

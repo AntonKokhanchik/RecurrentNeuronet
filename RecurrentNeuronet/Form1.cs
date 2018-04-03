@@ -15,6 +15,7 @@ namespace RecurrentNeuronet
     {
         Encoder encoder;
         RecurrentNeuronet neuronet;
+		double[][] encodedText;
 
         public Form1()
         {
@@ -30,13 +31,13 @@ namespace RecurrentNeuronet
         {
             string[][] text = getWords();
             encoder = new Encoder(text);
-            neuronet = new RecurrentNeuronet(encoder.EncodeText(text), l, epsilon);
+			encodedText = encoder.EncodeText(text);
         }
 
         private string[][] getWords()
         {
             List<string[]> text = new List<string[]>();
-            StreamReader file = new StreamReader(openFileDialog1.OpenFile());
+            StreamReader file = new StreamReader(openFileDialog1.OpenFile(), Encoding.UTF8);
  
             string s = file.ReadLine();
             while (s != null)
@@ -47,5 +48,11 @@ namespace RecurrentNeuronet
 
             return text.ToArray();
         }
-    }
+
+		private void buttonLearn_Click(object sender, EventArgs e)
+		{
+			neuronet = new RecurrentNeuronet(encodedText, 
+				Int32.Parse(textBoxInnerLength.Value.ToString()), double.Parse(textBoxEpsilon.Text));
+		}
+	}
 }
