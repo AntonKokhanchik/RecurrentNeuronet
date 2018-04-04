@@ -25,29 +25,45 @@ namespace RecurrentNeuronet
         Vector q;
         Vector[] p; // множители Лагранжа
 
-        // f - функция активации скрытого слоя
-        private Vector f(Vector s)
-        {
-            throw new NotImplementedException();
-        }
+		// f - функция активации скрытого слоя
+		private Vector f(Vector s)
+		{
+			// tanh
+			Vector s2 = new Vector(s);
+			for (int i = 0; i < s.Length; i++)
+				s2[i] = Math.Tanh(s2[i]);
+			return s2;
+		}
 
-        // f1 = f' - производная f
-        private Vector f1(Vector s)
-        {
-            throw new NotImplementedException();
-        }
+		// f1 = f' - производная f
+		private Vector f1(Vector s)
+		{
+			// 1/(cosh)^2
+			Vector s2 = new Vector(s);
+			for (int i = 0; i < s.Length; i++)
+				s2[i] = 1 / Math.Pow(Math.Cosh(s2[i]), 2);
+			return s2;
+		}
 
-        // g - функция активации выходного слоя
-        private Vector g(Vector s)
-        {
-            throw new NotImplementedException();
-        }
+		// g - функция активации выходного слоя
+		private Vector g(Vector s)
+		{
+			// tanh
+			Vector s2 = new Vector(s);
+			for (int i = 0; i < s.Length; i++)
+				s2[i] = Math.Tanh(s2[i]);
+			return s2;
+		}
 
-        // g1 = g' - производная g
-        private Vector g1(Vector s)
-        {
-            throw new NotImplementedException();
-        }
+		// g1 = g' - производная g
+		private Vector g1(Vector s)
+		{
+			// 1/(cosh)^2
+			Vector s2 = new Vector(s);
+			for (int i = 0; i < s.Length; i++)
+				s2[i] = 1 / Math.Pow(Math.Cosh(s2[i]), 2);
+			return s2;
+		}
 
 
         // Функции
@@ -72,7 +88,7 @@ namespace RecurrentNeuronet
             // вычисляем ошибку выходного слоя δo
             q = y - d;
             // вычисляем ошибку скрытого слоя в конечном состоянии δh(n)
-            p = new Vector[n];
+            p = new Vector[n+1];
             p[n] = Vector.TermByTermMultiplication(q, g1(W * h[n] + b)) * W;
             // вычисляем ошибки скрытого слоя в промежуточных состояниях δh(t) (t = 1,…,n)
             for (int t = n - 1; t > 0; t--)
@@ -140,13 +156,13 @@ namespace RecurrentNeuronet
 
                     h = new Vector[n + 1];
                     for (int j = 0; j <= n; j++)
-                        h[i] = new Vector(innerLength);
+                        h[j] = new Vector(innerLength);
                     s = new Vector[n + 1];
                     for (int j = 1; j <= n; j++)
                         s[j] = new Vector(innerLength);
 
                     DirectPass();
-                    while ((d - y) * (d - y) < epsilon)
+                    while ((d - y) * (d - y) > epsilon)
                     {
                         BackwardPass();
                         WeightsChange();
@@ -161,8 +177,13 @@ namespace RecurrentNeuronet
 
         public Vector Answer(double[] enter)
         {
-            x = enter;
-            DirectPass();
+			x = new double[n + 1];
+			for (int j = 0; j < n; j++)
+				if (j < enter.Length)
+					x[j + 1] = enter[j];
+				else
+					x[j + 1] = 0;
+			DirectPass();
             return y;
         }
 

@@ -78,7 +78,7 @@ namespace RecurrentNeuronet
             string[] words = s.Split(' ');
             double[] answer = new double[words.Length];
 
-            for (int i = 0; i < s.Length; i++)
+            for (int i = 0; i < words.Length; i++)
                 answer[i] = dictionary[words[i]];
 
             return answer;

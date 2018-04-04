@@ -54,5 +54,10 @@ namespace RecurrentNeuronet
 			neuronet = new RecurrentNeuronet(encodedText, 
 				Int32.Parse(textBoxInnerLength.Value.ToString()), double.Parse(textBoxEpsilon.Text));
 		}
+
+		private void buttonAnswer_Click(object sender, EventArgs e)
+		{
+			textBoxAnswer.Text = neuronet.Answer(encoder.EncodeString(textBoxString.Text)).ToString();
+		}
 	}
 }

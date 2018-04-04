@@ -136,7 +136,7 @@
 			this.buttonAnswer.TabIndex = 1;
 			this.buttonAnswer.Text = "Получить ответ";
 			this.buttonAnswer.UseVisualStyleBackColor = true;
-			this.buttonAnswer.Click += new System.EventHandler(this.buttonLearn_Click);
+			this.buttonAnswer.Click += new System.EventHandler(this.buttonAnswer_Click);
 			// 
 			// textBoxAnswer
 			// 
