@@ -24,11 +24,16 @@ namespace RecurrentNeuronet
         public Matrix(double[][] arr)
         {
             int n = arr[0].Length;
-            for (int i = 1; i < arr.Length; i++)
-                if (arr[i].Length != n)
-                    throw new ArgumentException("Массив должен быть прямоугольным (не ступенчатым)");
+			body = new double[arr.Length][];
+			for (int i = 1; i < arr.Length; i++)
+			{
+				if (arr[i].Length != n)
+					throw new ArgumentException("Массив должен быть прямоугольным (не ступенчатым)");
 
-            body = arr;
+				body[i] = new double[arr[i].Length];
+				for (int j = 0; j < arr[i].Length; j++)
+					body[i][j] = arr[i][j];
+			}
         }
 
         public Matrix(double[,] arr)
@@ -64,7 +69,13 @@ namespace RecurrentNeuronet
 
         public Matrix(Matrix M)
         {
-            body = M.body;
+			body = new double[M.Rows][];
+			for (int i = 1; i < M.Rows; i++)
+			{
+				body[i] = new double[M.Columns];
+				for (int j = 0; j < M.Columns; j++)
+					body[i][j] = M[i][j];
+			}
         }
 
         public double[] this[int i]

@@ -17,12 +17,16 @@ namespace RecurrentNeuronet
 
         public Vector(Vector v)
         {
-            body = v.body;
+            body = new double[v.Length];
+			for (int i = 0; i < v.Length; i++)
+				body[i] = v[i];
         }
 
         public Vector(double[] arr)
         {
-            body = arr;
+			body = new double[arr.Length];
+			for (int i = 0; i < arr.Length; i++)
+				body[i] = arr[i];
         }
 
         public int Length => body.Length;
