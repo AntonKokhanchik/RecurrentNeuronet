@@ -21,7 +21,18 @@ namespace RecurrentNeuronet
                 body[i] = new double[columns];
         }
 
-        public Matrix(double[][] arr)
+		public Matrix(int rows, int columns, double value)
+		{
+			body = new double[rows][];
+			for (int i = 0; i < rows; i++)
+			{
+				body[i] = new double[columns];
+				for (int j = 0; j < columns; j++)
+					body[i][j] = value;
+			}
+		}
+
+		public Matrix(double[][] arr)
         {
             int n = arr[0].Length;
 			body = new double[arr.Length][];
