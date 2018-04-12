@@ -31,7 +31,7 @@ namespace RecurrentNeuronet
 			// tanh
 			Vector s2 = new Vector(s);
 			for (int i = 0; i < s.Length; i++)
-				s2[i] = Math.Tanh(s2[i]);
+				s2[i] = Math.Tanh(s[i]);
 			return s2;
 		}
 
@@ -41,7 +41,7 @@ namespace RecurrentNeuronet
 			// 1/(cosh)^2
 			Vector s2 = new Vector(s);
 			for (int i = 0; i < s.Length; i++)
-				s2[i] = 1 / Math.Pow(Math.Cosh(s2[i]), 2);
+				s2[i] = 1 / Math.Pow(Math.Cosh(s[i]), 2);
 			return s2;
 		}
 
@@ -51,7 +51,7 @@ namespace RecurrentNeuronet
 			// tanh
 			Vector s2 = new Vector(s);
 			for (int i = 0; i < s.Length; i++)
-				s2[i] = Math.Tanh(s2[i]);
+				s2[i] = Math.Tanh(s[i]);
 			return s2;
 		}
 
@@ -61,7 +61,7 @@ namespace RecurrentNeuronet
 			// 1/(cosh)^2
 			Vector s2 = new Vector(s);
 			for (int i = 0; i < s.Length; i++)
-				s2[i] = 1 / Math.Pow(Math.Cosh(s2[i]), 2);
+				s2[i] = 1 / Math.Pow(Math.Cosh(s[i]), 2);
 			return s2;
 		}
 
